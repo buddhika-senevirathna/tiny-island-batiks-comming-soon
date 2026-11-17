@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
+/* ── Tiny Island brand tokens ────────────────────────────────────────────
+   Pulled straight from the logo artwork:
+   teal  #2a6f7c   cream #f4efe6
+   Indigo + sky tones are sampled from the batik prints in app/support.    */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4efe6;
+  --foreground: #14353b;
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-teal-brand: #2a6f7c;
+  --color-teal-deep: #14353b;
+  --color-teal-soft: #4f98a4;
+  --color-cream: #f4efe6;
+  --color-cream-deep: #e7dfd1;
+  --color-sand: #cbbfa8;
+  --color-indigo-batik: #16306b;
+  --color-indigo-deep: #0d1c3f;
+  --color-sky-batik: #67c6dd;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-playfair);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #2a6f7c;
+  color: #f4efe6;
+}
+
+/* ── Texture: fine linen/wax grain over the cream ground ─────────────── */
+.texture-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+}
+
+/* ── Motion ──────────────────────────────────────────────────────────── */
+@keyframes ti-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ti-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(var(--tilt, 0deg));
+  }
+}
+
+@keyframes ti-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ti-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.72);
+  }
+}
+
+@keyframes ti-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.06);
+  }
+}
+
+.animate-rise {
+  opacity: 0;
+  animation: ti-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-float {
+  animation: ti-float 7s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: ti-marquee 34s linear infinite;
+}
+
+.animate-pulse-dot {
+  animation: ti-pulse 2.2s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: ti-drift 18s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-float,
+  .animate-marquee,
+  .animate-pulse-dot,
+  .animate-drift {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
