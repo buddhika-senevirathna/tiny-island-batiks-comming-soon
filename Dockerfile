@@ -1,10 +1,12 @@
-FROM node:20-alpine AS deps
+FROM node:22.12-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci
+# --legacy-peer-deps: the lockfile's picomatch placement doesn't satisfy fdir's
+# optional peer range (^3 || ^4). npm install tolerates it, npm ci does not.
+RUN npm ci --legacy-peer-deps
 
-FROM node:20-alpine AS builder
+FROM node:22.12-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -12,7 +14,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 RUN npm run build
 
-FROM node:20-alpine AS runner
+FROM node:22.12-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=8080
