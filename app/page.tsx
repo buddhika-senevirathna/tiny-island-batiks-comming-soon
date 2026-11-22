@@ -339,7 +339,7 @@ export default function Home() {
                   <MailIcon />
                   Email
                 </span>
-                <span className="mt-3 block break-words font-display text-2xl text-cream transition group-hover:text-sky-batik sm:text-[1.75rem]">
+                <span className="mt-3 block break-words font-display text-2xl text-cream transition group-hover:text-sky-batik sm:text-[1.50rem]">
                   {CONTACT.email}
                 </span>
               </a>
