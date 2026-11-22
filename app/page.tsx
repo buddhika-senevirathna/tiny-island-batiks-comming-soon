@@ -3,7 +3,8 @@ import Image from "next/image";
 import studioFamily from "./support/images/TI26SIRD1B.png";
 import batikShirt from "./support/images/SIR26D1B-ST.jpg";
 import batikDress from "./support/images/SIR26D1B-F-K.jpg";
-import beachFamily from "./support/images/SIR26D5DB.jpg";
+import cropTop from "./support/images/left.jpg";
+import sarong from "./support/images/right.jpg";
 
 /* ──────────────────────────────────────────────────────────────────────
    PLACEHOLDER CONTACT DETAILS — swap these two lines for the real ones.
@@ -11,22 +12,23 @@ import beachFamily from "./support/images/SIR26D5DB.jpg";
    ────────────────────────────────────────────────────────────────────── */
 const CONTACT = {
   email: "hello@tinyisland.com.au",
-  phone: "+61 400 000 000",
-  phoneHref: "+61400000000",
+  phone: "+61 0488 719 410",
+  phoneHref: "+61 0488 719 410",
 };
 
-const CHARMS = [
+const CHARMS: { title: string; lead?: string; body: string }[] = [
   {
     title: "Drawn by hand, dyed by hand",
-    body: "Every motif is traced in hot wax and dipped by our dyers. No two pieces crack the same way — the pattern is the signature.",
+    body: "Every piece is individually crafted. No two pieces are ever exactly alike. Subtle variations in motif, placement and crackle are the signature of something crafted by hand.",
   },
   {
     title: "Made to match",
-    body: "One print, cut for everyone. Father and son, mother and daughter — the whole family in the same island story.",
+    lead: "One print, cut for everyone.",
+    body: " Our signature batik motifs are thoughtfully adapted across sizes and styles, allowing the whole family to share the same design story.",
   },
   {
     title: "Small island, small batch",
-    body: "Cut and sewn in limited runs on our island, in breathable cotton and rayon built for warm days by the water.",
+    body: "Crafted in limited runs from cotton, viscose and silk. Light, comfortable fabrics designed to be worn and enjoyed throughout the year.",
   },
 ];
 
@@ -34,30 +36,55 @@ const GALLERY = [
   {
     src: studioFamily,
     alt: "A family of five wearing matching indigo batik outfits in the studio",
-    caption: "The Family Set",
-    meta: "Indigo Reef",
+    caption: "THE FAMILY SET",
+    meta: "COASTAL BLOOM",
     span: "sm:col-span-2 sm:row-span-2",
+    fit: "object-top",
   },
   {
     src: batikShirt,
     alt: "Short-sleeve batik shirt in deep indigo with sky-blue floral motifs",
-    caption: "The Island Shirt",
-    meta: "Hand-waxed cotton",
+    caption: "THE ISLAND SHIRT",
+    meta: (
+      <>
+        HAND-DRAWN <em>Breathable Cotton</em>
+      </>
+    ),
     span: "",
+    fit: "object-top",
   },
   {
     src: batikDress,
     alt: "Navy batik dress with puff sleeves and a printed hem panel",
-    caption: "The Little Dress",
-    meta: "Puff sleeve, printed hem",
+    caption: "FOR LITTLE ADVENTURES ",
+    meta: (<em>Breathable Cotton</em>),
     span: "",
+    fit: "object-top",
   },
   {
-    src: beachFamily,
-    alt: "A family on the beach in matching navy batik tops and printed sarongs",
-    caption: "The Shore Sarong",
-    meta: "Wax-crack navy",
-    span: "sm:col-span-2",
+    src: cropTop,
+    alt: "Navy batik crop top with puff sleeves and sky-blue floral motifs",
+    caption: "THE CROP TOP",
+    meta: (
+      <>
+        MADE TO MATCH <em>Effortless comfort, shared in style</em>
+      </>
+    ),
+    span: "",
+    fit: "object-center",
+  },
+  {
+    src: sarong,
+    alt: "Navy batik sarong with ties and a printed floral hem band",
+    caption: "THE ISLAND SARONG",
+    meta: (
+      <>
+        MADE TO WRAP &amp; WANDER{" "}
+        <em>Light, comfortable and versatile</em>
+      </>
+    ),
+    span: "",
+    fit: "object-center",
   },
 ];
 
@@ -119,7 +146,7 @@ export default function Home() {
             </p>
 
             <p className="animate-rise mt-8 max-w-xl font-display text-2xl leading-9 text-teal-brand sm:text-[1.75rem] [animation-delay:280ms]">
-              Call or send us an email to place your pre-order.
+              Be among the first families to wear Tiny Island. Pre-orders are now open.
             </p>
 
             <div className="animate-rise mt-7 flex flex-col gap-3 sm:flex-row sm:items-center [animation-delay:320ms]">
@@ -235,6 +262,7 @@ export default function Home() {
                 {charm.title}
               </h3>
               <p className="mt-3 text-[0.95rem] leading-7 text-teal-deep/70">
+                {charm.lead ? <em>{charm.lead}</em> : null}
                 {charm.body}
               </p>
               <span className="pointer-events-none absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-teal-soft/20 blur-2xl transition duration-500 group-hover:bg-teal-soft/35" />
@@ -250,8 +278,7 @@ export default function Home() {
             A first look
           </h2>
           <p className="max-w-sm text-[0.95rem] leading-7 text-teal-deep/65">
-            A handful of pieces from the opening collection — indigo, sea glass
-            and wax-crack navy.
+            A preview of the opening collection. Hand-drawn batik motifs reimagined across sizes and styles for the whole family.
           </p>
         </div>
 
@@ -266,13 +293,13 @@ export default function Home() {
                 alt={item.alt}
                 placeholder="blur"
                 sizes="(max-width: 640px) 92vw, (max-width: 1280px) 45vw, 36rem"
-                className="h-full w-full object-cover object-top transition duration-[1.2s] ease-out group-hover:scale-[1.06]"
+                className={`h-full w-full object-cover ${item.fit} transition duration-[1.2s] ease-out group-hover:scale-[1.06]`}
               />
               <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-indigo-deep/85 via-indigo-deep/35 to-transparent p-5 pt-14">
                 <span className="font-display text-xl text-cream">
                   {item.caption}
                 </span>
-                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-cream/70">
+                <span className="text-right text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-cream/70">
                   {item.meta}
                 </span>
               </figcaption>
@@ -300,8 +327,7 @@ export default function Home() {
               className="h-20 w-auto sm:h-24 lg:h-28"
             />
             <p className="mt-8 max-w-xl text-lg leading-8 text-cream/75">
-              We are taking pre-orders now. Call or send us an email to place
-              your pre-order — we answer every message.
+              Pre-orders are now open. Contact us by email or phone to secure your place in the first Tiny Island collection.
             </p>
 
             <div className="mt-12 grid w-full max-w-3xl gap-4 sm:grid-cols-2">
@@ -324,7 +350,7 @@ export default function Home() {
               >
                 <span className="flex items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-cream/55">
                   <PhoneIcon />
-                  Telephone
+                  Phone
                 </span>
                 <span className="mt-3 block font-display text-2xl text-cream transition group-hover:text-sky-batik sm:text-[1.75rem]">
                   {CONTACT.phone}
