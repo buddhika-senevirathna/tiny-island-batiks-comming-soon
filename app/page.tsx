@@ -11,7 +11,7 @@ import sarong from "./support/images/right.jpg";
    `phoneHref` must have no spaces (it becomes the tel: link).
    ────────────────────────────────────────────────────────────────────── */
 const CONTACT = {
-  email: "hello@tinyisland.com.au",
+  email: "hello@tinyislandshop.com.au",
   phone: "+61 0488 719 410",
   phoneHref: "+61 0488 719 410",
 };
