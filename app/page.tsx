@@ -76,7 +76,7 @@ const GALLERY = [
   {
     src: sarong,
     alt: "Navy batik sarong with ties and a printed floral hem band",
-    caption: "THE ISLAND SARONG",
+    caption: "THE ISLAND LUNGI",
     meta: (
       <>
         MADE TO WRAP &amp; WANDER{" "}
